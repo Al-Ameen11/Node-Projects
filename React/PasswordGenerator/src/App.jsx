@@ -1,105 +1,89 @@
-import { useCallback, useState ,useEffect ,useRef} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState,useCallback,useEffect,useRef } from 'react'
 import './App.css'
 
 function App() {
-  const [length, setLength] = useState(8)
-  
-  const [numberAllowed, setNumberAllowed] = useState('false')
-  
-  const [charAllowed, setCharAllowed] = useState('false')
-  
-  const [password, setPassword] = useState('')
 
-  const passwordRef = useRef('null')
+  const [length,setLength] = useState(6)
 
-  const generatePassword = useCallback(()=>{
-    let pass =""
-    let str ="ABCDEFGHIHKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz"
-    if(numberAllowed) str += "0123456789"
-    if(charAllowed) str += "!@#$%^&*()_+"
+  const [numberAllowed,setNumberAllowed] = useState(false)
 
-    for(let i = 0; i < length; i++) {
-      pass += str.charAt(Math.floor(Math.random() * str.length))
-    }
+  const [charAllowed,setCharAllowed] = useState(false)
 
-    setPassword(pass)
+  const [password,setPassword] = useState('')
 
-  },[length, numberAllowed, charAllowed])
+  const passRef = useRef('null')
 
+const generatePassword =useCallback(()=>{
 
-  const copyPasswordToClipboard = () => {
-    window.navigator.clipboard.writeText(password)
-    passwordRef.current.select()
+  let pass =""
+  let str ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz"
+  if(numberAllowed) str+="1234567890"
+  if(charAllowed) str+="!@#$%^&*()_+"
+
+  for(let i=0;i<length;i++){
+    pass+=str.charAt(Math.floor(Math.random() * str.length))
   }
+    setPassword(pass)
+},[length,numberAllowed,charAllowed])
 
   useEffect(()=>{
     generatePassword()
-  },[length ,numberAllowed ,charAllowed])
+  },[length,numberAllowed,charAllowed])
+
+  const copyPasswordToClipboard = ()=> {
+    window.navigator.clipboard.writeText(password)
+    passRef.current.select()
+  }
 
   return (
     <>
-      <div className='w-full max-w-md mx-auto shadow-lg rounded-lg bg-gray-800 my-3 mx-auto px-4 py-3'>
-
-        <h1 className='text-center text-white my-3'>
-        Password Generator
-        </h1>
-
-        <div className='flex shadow rounded-lg overflow-hidden mb-4'>
-          <input 
-          type="text"
-          value={password}
-          className='outline-none w-full py-1 px-3'
+      <div className='w-full max-w-md bg-gray-800 px-4 py-2 rounded shadow-lg'>
+        <h1 className='text-white text-center py-3 text-lg'>Password Generator</h1>
+        <div className='flex py-2 justify-center'>
+          <input type="text"
           placeholder='Password'
+          className='px-2 py-1.7 grow outline-none'
+          value={password}
           readOnly
-          ref={passwordRef}
+          ref={passRef}
           />
           <button
           onClick={copyPasswordToClipboard}
-          className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'
-          >Copy</button>
+          className='bg-blue-700 px-4 py-1.5 text-white'>copy</button>
         </div>
-        
-        <div className='flex text-sm gap-x-2'>
+        <div className=' flex text-orange-400 text-sm gap-2'>
 
-          <div className='flex items-center gap-x-2 text-orange-500'>
-            <input 
-            type="range" 
-            name="" 
-            id="" 
-            className='cursor-pointer'
-            min={6}
-            max={100}
-            value={length}
-            onChange={(e) => setLength(e.target.value)}
-            />
-            <label htmlFor="length">Length: {length}</label>
-            </div>
-
-            <div className='flex items-center gap-x-2 text-orange-500'>
-            <input 
-            type="checkbox" 
-            name="" 
-            id="" 
-            defaultChecked={numberAllowed}
-            onChange={()=>
-              {setNumberAllowed((prev)=>!prev)}}
-            />
-            <label htmlFor="number">Numbers</label>
-            </div>
-
-            <div className='flex items-center gap-x-2 text-orange-500'>
-            <input 
-            type="checkbox" 
-            name="" 
-            id="" 
-            defaultChecked={charAllowed}
-            onChange={()=>
-              {setCharAllowed((prev)=>!prev)}}
-            />
-            <label htmlFor="characters">Characters</label>
-            </div>
+          <div className='flex gap-2'>
+          <input 
+          type="range"
+          min={6}
+          max={100}
+          value={length}
+          onChange={(e)=>setLength(e.target.value)}
+           />
+           <label htmlFor="length">Length : {length}</label>
+          </div>
+          <div className='flex gap-1'>
+          <input 
+          type="checkbox"
+          defaultChecked={numberAllowed}
+          onChange={()=>setNumberAllowed((prev)=>!prev)
+            }
+           />
+           <label htmlFor="charAllowed">
+            Numbers
+           </label>
+          </div>
+          <div className='flex gap-1'>
+          <input 
+          type="checkbox"
+          defaultChecked={charAllowed}
+          onChange={()=>setCharAllowed((prev)=>!prev)}
+           />
+           <label htmlFor="charAllowed">
+            Characters
+           </label>
+          </div>
 
         </div>
 
@@ -108,15 +92,7 @@ function App() {
   )
 }
 
-export default App
-
-
-
-
-
-
-
-
+export default App;
 
 
 
