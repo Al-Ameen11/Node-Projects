@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="./output.css">
+</head>
+<body class="bg-gray-500 flex items-center justify-center min-h-screen">
+  <div class="w-screen max-w-md bg-gray-800 p-5">
+    <h1 class="text-2xl text-center mb-3 font-bold text-white">Weather App</h1>
+    <div class="flex justify-center gap-2.5">
+      <input type="text" placeholder="Enter the city name..." class="bg-white px-3 py-0.5 " id="city-input">
+      <button class="bg-black text-white px-2 py-0.5" id="check-weather-btn">Check Weather</button>
+    </div>
+    <div class="hidden" id="display-weather-info">
+      <p class="text-center mt-2 text-white" id="display-cityName"></p>
+      <p class="text-center mt-2 text-white" id="display-temparature"></p>
+      <p class="text-center mt-2 text-white" id="display-weather"></p>
+    </div>
+    <div class="hidden mt-3" id="display-error">
+      <p class="text-red-600 text-center text-lg">The city is doesn't exist</p>
+    </div>
+  </div>
+  <script src="./weatherApp.js"></script>
+</body>
+</html>
